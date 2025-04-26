@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Fixed Deposit</title>
+    <link rel="stylesheet" href="../static/createFixedDepositForm.css" data-th-href="@{/createFixedDepositForm.css}">
+</head>
+<body>
+<div>
+    <h1>Open fixed deposit</h1>
+    <form name="createFixedDepositForm" method="post" action="/fixedDeposit?fdAction=create">
+        <table>
+            <tr>
+                <td><label for="bankAccountId"><b>Account:</b></label></td>
+                <td><input type="text" id="bankAccountId" name="bankAccountId" value="1" readonly
+                           data-th-value="${newFixedDepositDetails.bankAccountId}"></td>
+            </tr>
+            <tr>
+                <td><label for="depositAmount"><b>Amount (in USD):</b></label></td>
+                <td><input type="text" id="depositAmount" name="depositAmount" required
+                           value="1000" pattern="\d+" placeholder="≥1000"
+                           data-th-value="${newFixedDepositDetails.depositAmount}"></td>
+            </tr>
+            <tr>
+                <td><label for="tenure"><b>Tenure (in months):</b></label></td>
+                <td><input type="text" id="tenure" name="tenure" required
+                           value="12" pattern="\d+" placeholder="≥12"
+                           data-th-value="${newFixedDepositDetails.tenure}"></td>
+            </tr>
+            <tr>
+                <td><label for="maturityDate"><b>Maturity Date:</b></label></td>
+                <!--pattern="\d{2}-\d{2}-\d{4}"-->
+                <td><input type="text" id="maturityDate" name="maturityDate" required
+                           value="04-25-2024" placeholder="MM-dd-yyyy"
+                           data-th-value="${T(com.example.mybank.util.Utils).INSTANCE.formatDate(newFixedDepositDetails.maturityDate)}"></td>
+            </tr>
+            <tr>
+                <td><label for="email"><b>Email:</b></label></td>
+                <td><input type="text" id="email" name="email" required
+                           value="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                           data-th-value="${newFixedDepositDetails.email}"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Save">
+                    <a href="../fixedDepositList.html" data-th-href="@{/fixedDeposit/list}"><b>Go Back</b></a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

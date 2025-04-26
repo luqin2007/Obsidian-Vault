@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <setup-testing :abook="book"></setup-testing>
+</div>
+
+<script>
+    const SetupTestingComponent = {
+        props: ['abook'],
+        setup(props) {
+            console.log(props.abook.id)
+            mybook = props.abook
+            // 暴露给 template
+            return {
+                mybook
+            }
+        },
+        template: '{{mybook}}'
+    }
+
+    Vue.createApp({
+        data() {
+            return {
+                book: {
+                    id: 1,
+                    title: 'My journey with Vue'
+                }
+            }
+        }
+    }).component('setup-testing', SetupTestingComponent).mount('#app')
+</script>
+
+</body>
+</html>

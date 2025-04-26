@@ -1,0 +1,14 @@
+{
+  "promptDelete": false,
+  "alwaysUpdateLinks": true,
+  "newFileLocation": "current",
+  "newFileFolderPath": "_resources/images",
+  "attachmentFolderPath": "_resources/images",
+  "useMarkdownLinks": false,
+  "defaultViewMode": "preview",
+  "userIgnoreFilters": [
+    "_resources/"
+  ],
+  "newLinkFormat": "relative",
+  "readableLineLength": false
+}

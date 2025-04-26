@@ -1,0 +1,30 @@
+server.port: 8285
+spring.application.name: shopping-gateway
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false
+    fetch-registry: true
+    service-url:
+      defaultZone: http://lq2007:admin@localhost:8260/eureka
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          # 将服务名转换为小写
+          lower-case-service-id: true
+      routes:
+        - id: user-service-route
+          uri: lb://shopping-user-service
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=1
+            - name: JWTTokenFilter
+              args:
+                jwtSigningKey: 123456

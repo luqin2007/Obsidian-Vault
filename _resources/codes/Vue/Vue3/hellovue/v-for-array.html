@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<div id="myFor">
+    <button @click="add()">添加数组元素</button>
+    <button @click="reback()">翻转数组元素</button>
+    <button @click="deletelast()">弹出数组最后一个元素</button>
+    <button @click="deletefirst()">删除数组第一个元素</button>
+    <button @click="mysort()">数组元素排序</button>
+    <ul>
+        <li v-for="(book, index) in books">{{++index}}. {{book}}</li>
+    </ul>
+</div>
+</body>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                books: ['Java Web 开发从入门到实战',
+                    'Java EE 框架整合开发入门到实战 -- Spring+Spring MVC+Mybatis',
+                    'Spring Boot 从入门到实战']
+            }
+        },
+        methods: {
+            add() {
+                this.books.push('SSM + Spring Boot + Vue.js 3.x 全栈开发从入门到实战（微课版）')
+            },
+            reback() {
+                this.books.reverse()
+            },
+            deletelast() {
+                this.books.pop()
+            },
+            deletefirst() {
+                this.books.shift()
+            },
+            mysort() {
+                this.books.sort()
+            }
+        }
+    }).mount("#myFor")
+</script>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<div id="watch-example">
+    <p>
+        请问一个问题：
+        <input type="text" v-model="question" />
+    </p>
+    <p>{{ answer }}</p>
+</div>
+</body>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                question: '',
+                answer: '这是个好问题。'
+            }
+        },
+        watch: {
+            question(newValue, oldValue) {
+                if (newValue.endsWith('?') > 0) {
+                    this.getAnswer()
+                } else {
+                    this.answer = '这是个好问题。'
+                }
+            }
+        },
+        methods: {
+            getAnswer() {
+                this.answer = "ans: " + this.question
+            }
+        }
+    }).mount("#watch-example")
+</script>
+</html>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="test" class="java.lang.Object" />
+
+    <bean id="myMethodReplacer" class="com.example.mybank.MyMethodReplacer" />
+    <bean id="replacedMethodBean" class="com.example.mybank.ReplacedMethodBean">
+        <!-- 使用 myMethodReplacer 代理 getMyBean 方法 -->
+        <replaced-method name="getByBean" replacer="myMethodReplacer" />
+    </bean>
+</beans>

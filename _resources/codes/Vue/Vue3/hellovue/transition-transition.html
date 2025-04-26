@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+    <style>
+        .slide-img-enter-active {
+            transition: all 0.8s ease-out;
+        }
+        .slide-img-leave-active {
+            transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+        }
+        .slide-img-enter-from,
+        .slide-img-leave-to {
+            transform: rotateX(45deg);
+            transform: rotateY(45deg);
+            transform: rotateZ(45deg);
+            transform: rotate3d(1, 1, 1, 45deg);
+            opacity: 0;
+        }
+        .bounce-img-enter-active {
+            animation: bounce-in 0.8s;
+        }
+        .bounce-img-leave-active {
+            animation: bounce-in 0.8s reverse;
+        }
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.25);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="show = !show">切换显示图片</button>
+    <transition name="slide-img">
+        <p v-if="show"><img src="../img/99.jpg" /></p>
+    </transition>
+    <transition name="bounce-img">
+        <p v-if="show"><img src="../img/99.jpg" /></p>
+    </transition>
+</div>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                show: true
+            }
+        }
+    }).mount('#app')
+</script>
+</body>
+</html>

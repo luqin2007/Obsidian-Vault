@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<div id="event-handling">
+    <!-- 阻止点击事件 -->
+    <a @click.stop="doThis"></a>
+    <!-- 提交事件不再重载页面 -->
+    <form @submit.prevent="onSubmit"></form>
+    <!-- 串联修饰符 -->
+    <a @click.stop.prevent="doThat"></a>
+    <!-- 修饰符不带属性值 -->
+    <form @submit.prevent></form>
+    <!-- 事件监听器使用捕获模式 -->
+    <div @click.capture="doThis"></div>
+    <!-- 仅事件自身触发回调 -->
+    <div @click.self="doThat"></div>
+    <!-- 仅触发一次 -->
+    <div @click.once="doThis"></div>
+    <!-- 滚动事件默认行为（滚动）立即触发，不等待 onScroll 完成 -->
+    <div @scroll.passive="onScroll"></div>
+</div>
+</body>
+</html>

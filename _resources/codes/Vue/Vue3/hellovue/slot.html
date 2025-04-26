@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<template id="child">
+    <hr>
+    <slot>
+        <p>这是默认的插槽内容</p>
+    </slot>
+    <hr>
+</template>
+
+<div id="app">
+    <!-- 这里显示默认插槽内容 -->
+    <child-com></child-com>
+    <!-- 这里显示组件插槽内容 -->
+    <child-com>
+        <p>我是组件提供的插槽内容</p>
+    </child-com>
+</div>
+
+<script>
+    Vue.createApp({})
+        .component('child-com', {
+            template: '#child'
+        })
+        .mount('#app')
+</script>
+</body>
+</html>

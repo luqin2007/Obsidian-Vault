@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<div id="event-handling">
+    <a href="https://www.baidu.com/" @click="warn('考试期间禁止百度！', $event)">百度</a>
+    <a href="https://www.baidu.com/" @click.prevent="warn('考试期间禁止百度！')">百度</a>
+</div>
+</body>
+<script>
+    Vue.createApp({
+        methods: {
+            warn(message, event) {
+                // 禁用默认行为
+                event.preventDefault()
+                alert(message)
+            },
+            warn(message) {
+                alert(message)
+            }
+        }
+    }).mount("#event-handling")
+</script>
+</html>

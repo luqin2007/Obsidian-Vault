@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<div id="app">
+    <setup-testing></setup-testing>
+</div>
+<script>
+    Vue.createApp({})
+        .component('setup-testing', {
+            setup() {
+                const readersNumber = Vue.ref(1000)
+                const book = Vue.reactive({ title: '好书' })
+                return () => Vue.h('div', [readersNumber.value, book.title])
+            }
+        })
+        .mount('#app')
+</script>
+</body>
+</html>

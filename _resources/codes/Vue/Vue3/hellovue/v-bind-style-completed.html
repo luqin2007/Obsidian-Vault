@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<div id="v-bind-style">
+    <div :style="mystyle">绑定内联样式</div>
+</div>
+</body>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                activeColor: 'red',
+                fontSize: 30
+            }
+        },
+        computed: {
+            mystyle() {
+                return [ {'color': this.activeColor}, {'fontSize': `${this.fontSize}px`} ]
+            }
+        }
+    }).mount("#v-bind-style")
+</script>
+</html>

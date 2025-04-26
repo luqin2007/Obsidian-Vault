@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="customerRequestDetails" class="com.example.mybank.CustomerRequestDetails" />
+    <bean id="consumerRequestService" class="com.example.mybank.ConsumerRequestService">
+        <!-- 指定方法名和返回的 bean -->
+        <lookup-method bean="customerRequestDetails" name="getCustomerDetails" />
+    </bean>
+</beans>

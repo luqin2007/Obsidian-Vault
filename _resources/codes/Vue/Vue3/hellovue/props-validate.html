@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<template id="validate">
+    <div>
+        <h4>{{num}}</h4>
+        <h4>{{strnum}}</h4>
+        <h4>{{isrequired}}</h4>
+        <h4>{{numdefault}}</h4>
+        <h4>{{objectdefault}}</h4>
+        <h4>{{myfun}}</h4>
+    </div>
+</template>
+
+<div id="validate-post-demo">
+    <validate-post :num="200"
+                   :strnum="'sdf'"
+                   :isrequired="'abc'"
+                   :numdefault="300"
+                   :objectdefault="{a: 'a'}"
+                   :myfun="'aaa'"></validate-post>
+</div>
+
+<script>
+    Vue.createApp({})
+        .component('validate-post', {
+            props: {
+                num: Number,
+                strnum: [Number, String],
+                isrequired: {type: String, required: true},
+                numdefault: {type: Number, default: 100},
+                objectdefault: {
+                    type: Object, default: () => { return {message: 'hello'} }
+                },
+                myfun: {
+                    validator: value => ['success', 'warning', 'danger'].indexOf(value) !== -1
+                }
+            },
+            template: '#validate'
+        })
+        .mount('#validate-post-demo')
+</script>
+</body>
+</html>

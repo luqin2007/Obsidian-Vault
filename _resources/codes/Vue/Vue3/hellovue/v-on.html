@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<div id="event-handling">
+    <p>{{ message }}</p>
+    <button v-on:click="reverseMessage()">反转 message</button>
+    <button @click="reverseMessage">反转 message</button>
+</div>
+</body>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                message: "Hello Vue!"
+            }
+        },
+        methods: {
+            reverseMessage() {
+                this.message = this.message.split('').reverse().join('')
+            }
+        }
+    }).mount("#event-handling")
+</script>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<div id="hello-vue">
+    <span>{{ counter }}</span>
+    <p></p>
+    <span v-once>{{ counter }}</span>
+    <p></p>
+    <span>{{ rawHtml }}</span>
+    <p></p>
+    <span v-html="rawHtml"></span>
+</div>
+</body>
+<script>
+    const helloApp = {
+        data() {
+            return {
+                counter: 0,
+                rawHtml: "<hr>"
+            }
+        },
+        mounted() {
+            setInterval(() => this.counter++, 1000)
+        }
+    }
+    Vue.createApp(helloApp).mount("#hello-vue")
+</script>
+</html>

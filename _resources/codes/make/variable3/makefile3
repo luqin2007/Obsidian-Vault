@@ -1,0 +1,16 @@
+ifdef do_sort
+    func := sort
+else
+    func := strip
+endif
+
+bar := a d b g q c
+foo := $($(func) $(bar))
+
+all : 
+	@echo $(bar)
+	@echo $(sort $(bar))
+	@echo $(strip $(bar))
+	@echo ($(func) $(bar))
+	@echo $($(func) $(bar))
+	@echo $(foo)

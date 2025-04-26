@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:amq="http://activemq.apache.org/schema/core"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd
+       http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd">
+
+    <!-- 内嵌模式 -->
+    <amq:broker>
+        <amq:transportConnectors>
+            <amq:transportConnector uri="tcp://localhost:61616" />
+        </amq:transportConnectors>
+    </amq:broker>
+
+    <amq:connectionFactory brokerURL="vm://localhost" id="connectionFactory">
+        <amq:trustedPackages>
+            <value>com.example.mybank</value>
+            <value>java.util</value>
+        </amq:trustedPackages>
+    </amq:connectionFactory>
+
+    <bean id="cachingConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="targetConnectionFactory" ref="connectionFactory" />
+    </bean>
+
+    <amq:queue id="fixedDepositDestination" physicalName="aQueueDestination" />
+    <amq:queue id="emailQueueDestination" physicalName="emailQueueDestination" />
+
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="defaultDestination" ref="fixedDepositDestination" />
+    </bean>
+
+    <bean id="jmsTxManager" class="org.springframework.jms.connection.JmsTransactionManager">
+        <property name="connectionFactory" ref="cachingConnectionFactory" />
+    </bean>
+
+    <bean id="jmsTransactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="jmsTxManager" />
+    </bean>
+
+    <bean id="fixedDepositDao" class="com.example.mybank.dao.FixedDepositDao" />
+    <bean id="fixedDepositService" class="com.example.mybank.service.FixedDepositService">
+        <lookup-method name="getFixedDepositDao" bean="fixedDepositDao" />
+        <lookup-method name="getJmsTemplate" bean="jmsTemplate" />
+        <lookup-method name="getTransactionTemplate" bean="jmsTransactionTemplate" />
+    </bean>
+
+    <bean id="fixedDepositMessageListener" class="com.example.mybank.jms.FixedDepositMessageListener">
+        <lookup-method name="getMailSender" bean="mailSender" />
+        <lookup-method name="getProcessedReceivedTemplate" bean="processedReceivedTemplate" />
+    </bean>
+    <bean id="emailMessageListener" class="com.example.mybank.jms.EmailMessageListener">
+        <lookup-method name="getMailSender" bean="mailSender" />
+        <lookup-method name="getRequestReceivedTemplate" bean="requestReceivedTemplate" />
+    </bean>
+
+    <jms:listener-container>
+        <jms:listener destination="aQueueDestination" ref="fixedDepositMessageListener" />
+        <jms:listener destination="emailQueueDestination" ref="emailMessageListener" />
+    </jms:listener-container>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.163.com" />
+        <property name="protocol" value="smtps" />
+        <property name="port" value="465" />
+        <property name="username" value="<mail@mail.com>" />
+        <property name="password" value="<password>" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="requestReceivedTemplate" class="org.springframework.mail.SimpleMailMessage">
+        <property name="text" value="Your request for creating the fixed deposit has been received."/>
+        <property name="subject" value="Fixed deposit request received" />
+        <property name="from" value="lqjhzp@163.com" />
+    </bean>
+
+    <bean id="processedReceivedTemplate" class="org.springframework.mail.SimpleMailMessage">
+        <property name="text" value="Your request for creating the fixed deposit has been processed."/>
+        <property name="subject" value="Fixed deposit request processed" />
+        <property name="from" value="lqjhzp@163.com" />
+    </bean>
+</beans>

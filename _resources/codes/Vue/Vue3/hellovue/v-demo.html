@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <span v-demo:msg.a.b="message"></span>
+</div>
+
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                message: 'Hello'
+            }
+        }
+    }).directive('demo', {
+        beforeMount(el, binding, vnode) {
+            const keys = Object.keys(vnode)
+            el.innerHTML = `value: ${binding.value}<br>
+                            arguments: ${binding.arg}<br>
+                            modifiers: ${JSON.stringify(binding.modifiers)}<br>
+                            vnodes: ${keys.join(', ')}`
+        }
+    }).mount('#app')
+</script>
+
+</body>
+</html>

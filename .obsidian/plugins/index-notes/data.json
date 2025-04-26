@@ -1,0 +1,9 @@
+{
+  "update_interval_seconds": 5,
+  "exclude_folders": [],
+  "index_tag": "idx",
+  "meta_index_tag": "meta_idx",
+  "priority_tag": "top",
+  "show_note_title": true,
+  "metadata_template": "date_created: {{today}}\ntags: {{tags}}"
+}

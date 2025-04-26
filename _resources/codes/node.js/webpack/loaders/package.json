@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack-dev-server --config webpack.config.js"
+  },
+  "dependencies": {
+    "css-loader": "^7.1.2",
+    "file-loader": "^6.2.0",
+    "style-loader": "^4.0.0",
+    "url-loader": "^4.1.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.4"
+  }
+}

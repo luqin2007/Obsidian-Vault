@@ -1,0 +1,7 @@
+{
+  "deleteOption": "system-trash",
+  "logsModal": true,
+  "excludedFolders": "_resources/codes,_resources/documents",
+  "ribbonIcon": true,
+  "excludeSubfolders": false
+}

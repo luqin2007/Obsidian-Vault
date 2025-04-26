@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板引用</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+
+<template id="st">
+    <div ref="root">这是根元素</div>
+</template>
+
+<div id="app">
+    <setup-testing></setup-testing>
+</div>
+
+<script>
+    Vue.createApp()
+        .component('setup-testing', {
+            setup() {
+                const root = Vue.ref(null)
+                Vue.onBeforeMount(() => console.log(root.value)) // null
+                Vue.onMounted(() => console.log(root.value))     // <div>
+                return { root }
+            }, template: '#st'
+        })
+        .mount('#app')
+</script>
+
+</body>
+</html>

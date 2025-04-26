@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<div id="app">
+    <button @click="currentCom = 'add'">添加信息</button>
+    <button @click="currentCom = 'edit'">修改信息</button>
+    <button @click="currentCom = 'del'">删除信息</button>
+    <component :is="currentCom"></component>
+</div>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                currentCom: 'add'
+            }
+        },
+        components: {
+            'add': { template: '<div>添加信息展示页面</div>' },
+            'edit': { template: '<div>修改信息展示页面</div>' },
+            'del': { template: '<div>删除信息展示页面</div>' },
+        }
+    }).mount('#app')
+</script>
+</body>
+</html>

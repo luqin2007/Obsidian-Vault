@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+    <style>
+        .container {
+            width: 270px;
+            margin-top: 10px;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .cell {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            outline: 1px solid #aaa;
+        }
+
+        .cell-move {
+            transition: 0.5s;
+        }
+    </style>
+</head>
+<body>
+
+<div id="cell-app">
+    <button @click="shuffle">多维列表变换</button>&nbsp;&nbsp;
+
+    <transition-group name="cell" tag="div" class="container">
+        <span v-for="cell in cells" :key="cell.id" class="cell">{{cell.number}}</span>
+    </transition-group>
+</div>
+
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                cells: Array
+                    .apply(null, { length: 81 })
+                    .map((_, idx) => { return {id: idx, number: idx % 9 + 1} })
+            }
+        },
+        methods: {
+            shuffle() {
+                this.cells = this.cells.sort(_ => Math.random() - 0.5)
+            }
+        }
+    }).mount('#cell-app')
+</script>
+
+</body>
+</html>

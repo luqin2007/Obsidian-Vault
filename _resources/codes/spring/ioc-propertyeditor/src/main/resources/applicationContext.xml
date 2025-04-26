@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="aBean" class="java.lang.Object" />
+    <bean id="bBean" class="java.lang.Object" />
+
+    <bean id="props" class="com.example.mybank.BeanProperties">
+        <!-- Object[] / int[] / String[] -->
+        <property name="propObjArray">
+            <array>
+                <value>1</value>
+                <value>2</value>
+            </array>
+        </property>
+        <property name="propIntArray">
+            <array>
+                <value>1</value>
+                <value>2</value>
+            </array>
+        </property>
+        <property name="propStrArray">
+            <array>
+                <value>1</value>
+                <value>2</value>
+            </array>
+        </property>
+
+        <!-- java.util.Properties -->
+        <property name="propProperties">
+            <props>
+                <prop key="book">Getting started with the Spring Framework</prop>
+            </props>
+        </property>
+
+        <!-- 默认 ArrayListCustomDateEditor -->
+        <property name="propList">
+            <list>
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+                <value>4</value>
+            </list>
+        </property>
+
+        <!-- 默认 LinkedHashSet<Integer> -->
+        <property name="propSet">
+            <set>
+                <value>Element 1</value>
+                <value>Element 2</value>
+            </set>
+        </property>
+
+        <!-- 默认 LinkedHashMapCustomDateEditor -->
+        <property name="propMap">
+            <map>
+                <entry>
+                    <key><idref bean="aBean" /></key>
+                    <ref bean="aBean" />
+                </entry>
+                <entry value-ref="bBean">
+                    <key><idref bean="bBean" /></key>
+                </entry>
+            </map>
+        </property>
+
+        <property name="propDate" value="20-10-2020"/>
+    </bean>
+
+    <bean id="myPropertyEditorRegistrar" class="com.example.mybank.MyPropertyEditorRegistrar" />
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="propertyEditorRegistrars" ref="myPropertyEditorRegistrar" />
+    </bean>
+</beans>

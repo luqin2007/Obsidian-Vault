@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<template id="stesting">
+    {{userLocation}}<br>
+    {{userGeolocation.longitude}}
+</template>
+
+<div id="app">
+    <setup-testing>
+        {{userLocation}}
+    </setup-testing>
+</div>
+
+<script>
+    const App = {
+        setup() {
+            // or import { provide } from 'vue'
+            Vue.provide('location', 'North Pole')
+            Vue.provide('geolocation', {
+                longitude: 90,
+                latitude: 135
+            })
+        }
+    }
+
+    const SetupTestingComponent = {
+        setup() {
+            // or import { inject } from 'vue'
+            const userLocation = Vue.inject('location', 'The Universe')
+            const userGeolocation = Vue.inject('geolocation')
+            return { userLocation, userGeolocation }
+        },
+        template: '#stesting'
+    }
+
+    Vue.createApp(App)
+        .component('setup-testing', SetupTestingComponent)
+        .mount('#app')
+</script>
+</body>
+</html>

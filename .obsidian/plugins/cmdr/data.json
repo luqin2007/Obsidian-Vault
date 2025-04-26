@@ -1,0 +1,86 @@
+{
+  "confirmDeletion": true,
+  "showAddCommand": true,
+  "debug": false,
+  "editorMenu": [],
+  "fileMenu": [
+    {
+      "id": "templater-obsidian:insert-templater",
+      "icon": "templater-icon",
+      "name": "Templater: Open Insert Template modal",
+      "mode": "any"
+    },
+    {
+      "id": "graph:open-local",
+      "icon": "lucide-git-fork",
+      "name": "关系图谱: 打开局部关系图",
+      "mode": "any"
+    }
+  ],
+  "leftRibbon": [],
+  "rightRibbon": [],
+  "titleBar": [],
+  "statusBar": [
+    {
+      "id": "tabs:convert-to-tabs",
+      "icon": "book",
+      "name": "将选中文本转换转换为标签",
+      "mode": "any"
+    },
+    {
+      "id": "obsidian-columns:insert-column-wrapper",
+      "icon": "bar-chart-2",
+      "name": "多列",
+      "mode": "any"
+    },
+    {
+      "id": "note-composer:split-file",
+      "icon": "lucide-scissors",
+      "name": "笔记重组: 将当前选中内容移动到其他文件中",
+      "mode": "any"
+    },
+    {
+      "id": "workspace:toggle-pin",
+      "icon": "lucide-pin",
+      "name": "解锁/锁定",
+      "mode": "any"
+    },
+    {
+      "id": "file-explorer:new-file",
+      "icon": "lucide-file-plus",
+      "name": "新建笔记",
+      "mode": "any"
+    },
+    {
+      "id": "app:open-settings",
+      "icon": "lucide-settings",
+      "name": "打开设置",
+      "mode": "any"
+    }
+  ],
+  "pageHeader": [
+    {
+      "id": "obsidian-icon-folder:iconize:set-icon-for-file",
+      "icon": "image",
+      "name": "Iconize: Set icon for file",
+      "mode": "any"
+    }
+  ],
+  "macros": [],
+  "explorer": [],
+  "hide": {
+    "statusbar": [],
+    "leftRibbon": []
+  },
+  "spacing": 8,
+  "advancedToolbar": {
+    "rowHeight": 48,
+    "rowCount": 1,
+    "spacing": 0,
+    "buttonWidth": 48,
+    "columnLayout": false,
+    "mappedIcons": [],
+    "tooltips": false,
+    "heightOffset": 0
+  }
+}

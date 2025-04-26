@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="jmsMessageSender" class="com.example.mybank.JmsMessageSender" />
+    <bean id="emailMessageSender" class="com.example.mybank.EmailMessageSender" />
+    <bean id="webServiceInvoker" class="com.example.mybank.WebServiceInvoker" />
+
+    <bean id="personalBankingService" class="com.example.mybank.service.PersonalBankingService">
+        <constructor-arg index="0" ref="jmsMessageSender" />
+        <constructor-arg index="1" ref="emailMessageSender" />
+        <constructor-arg index="2" ref="webServiceInvoker" />
+    </bean>
+
+    <bean id="daoFactory" class="com.example.mybank.dao.FixedDepositDaoFactory" />
+
+    <bean id="databaseInfo" class="com.example.mybank.DatabaseInfo" />
+
+    <!-- FixedDepositJdbcDao 中存在 setDatabaseInfo 方法 -->
+    <bean id="dao"
+          factory-bean="daoFactory"
+          factory-method="getFixedDepositDao">
+        <constructor-arg index="0" value="jdbc" />
+        <property name="databaseInfo" ref="databaseInfo" />
+    </bean>
+
+    <bean id="serviceTemplate" class="com.example.mybank.service.ServiceTemplate">
+        <constructor-arg ref="webServiceInvoker" />
+        <constructor-arg ref="jmsMessageSender" />
+        <constructor-arg ref="emailMessageSender" />
+    </bean>
+
+    <bean id="transferFundsService" class="com.example.mybank.service.TransferFundsServiceImpl">
+        <constructor-arg name="webServiceUrl" value="http://someUrl.com/xyz" />
+        <constructor-arg name="active" value="true" />
+        <constructor-arg name="numberOfRetrialAttempts" value="5" />
+        <constructor-arg name="timeout" value="200" />
+    </bean>
+</beans>

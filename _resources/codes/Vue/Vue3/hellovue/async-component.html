@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <p>现在是 {{ new Date() }}</p>
+    <async-com></async-com>
+</div>
+
+<script>
+    const AsyncCom = Vue.defineAsyncComponent(() => {
+        return new Promise((resolve, reject) => {
+            // 模拟一个需要 5s 加载的异步组件
+            window.setTimeout(() => {
+                resolve({
+                    template: `<div>5s 后组件加载成功，现在是 ${new Date()}</div>`
+                })
+            }, 5000)
+        })
+    })
+    Vue.createApp({})
+        .component('async-com', AsyncCom)
+        .mount('#app')
+</script>
+</body>
+</html>

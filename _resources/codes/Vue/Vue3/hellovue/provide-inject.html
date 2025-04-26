@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+
+<template id="son">
+    <div>{{todos.length}}</div>
+    <todo-son></todo-son>
+</template>
+
+<template id="grandson">
+    <div>{{todoLength}}</div>
+</template>
+
+<div id="provide-inject">
+    <todo-list :todos="todos"></todo-list>
+</div>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                todos: ['Feed a cat', 'Buy tickets']
+            }
+        },
+        provide() {
+            return {
+                todoLength: this.todos.length
+            }
+        }
+    })
+
+    app.component('todo-list', {
+        props: ['todos'],
+        components: {
+            'todo-son': {
+                inject: ['todoLength'],
+                template: '#grandson'
+            }
+        },
+        template: '#son'
+    })
+
+    app.mount('#provide-inject')
+</script>
+</body>
+</html>

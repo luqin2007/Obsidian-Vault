@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="databaseOperations" class="com.example.mybank.DatabaseOperations" />
+
+    <bean id="daoFactory" class="com.example.mybank.dao.FixedDepositDaoFactory" />
+
+    <bean id="daoTemplate" abstract="true">
+        <property name="databaseOperations" ref="databaseOperations" />
+    </bean>
+
+    <bean id="fixedDepositDao" factory-bean="daoFactory" factory-method="getFixedDepositDao" parent="daoTemplate">
+        <constructor-arg value="jdbc" />
+    </bean>
+</beans>

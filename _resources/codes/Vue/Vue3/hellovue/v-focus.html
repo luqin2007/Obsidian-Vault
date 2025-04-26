@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <input><br>
+    <input v-focus><br>
+    <input>
+</div>
+
+<script>
+    Vue.createApp({})
+        .directive('focus', {
+            mounted(el) {
+                el.focus()
+            }
+        })
+        .mount('#app')
+</script>
+
+</body>
+</html>

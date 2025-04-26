@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<div id="vbind-class">
+    <div :class="mycolor">绑定语法</div>
+    <div class="static" :class="{ 'active': isActive, 'text-danger': hasError }">对象语法</div>
+    <div :class="[ activeClass, errorClass ]">数组语法</div>
+    <div :class="[ isActive ? activeClass : '', errorClass ]">三元表达式</div>
+    <div :class="[ { 'active': isActive },errorClass ]">数组嵌套对象</div>
+</div>
+</body>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                mycolor: 'my',
+                isActive: 'true',
+                hasError: 'false',
+                activeClass: 'your',
+                errorClass: 'his'
+            }
+        }
+    }).mount("#vbind-class")
+</script>
+<style>
+    .my {
+        background-color: red;
+    }
+    .your {
+        font-size: 20px;
+    }
+    .his {
+        background-color: blue;
+    }
+    .static {
+        background-color: yellow;
+    }
+    .active {
+        font-size: 40px;
+    }
+</style>
+</html>

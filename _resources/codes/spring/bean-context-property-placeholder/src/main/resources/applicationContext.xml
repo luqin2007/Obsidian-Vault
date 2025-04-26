@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="database.properties, web-service.properties"/>
+
+    <bean id="datasource" class="com.example.mybank.bean.DataSource">
+        <property name="url" value="${database.url}"/>
+        <property name="username" value="${database.username}"/>
+        <property name="password" value="${database.password}"/>
+        <property name="driverClass" value="${database.driverClass}"/>
+    </bean>
+
+    <bean id="webServiceConfiguration" class="com.example.mybank.bean.WebServiceConfiguration">
+        <property name="url" value="${webservice.url}"/>
+    </bean>
+</beans>

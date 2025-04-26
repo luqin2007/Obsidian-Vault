@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<template id="child"><div>
+    <div>
+        <slot name="header">标题</slot>
+    </div>
+    <div>
+        <slot>默认正文内容</slot>
+    </div>
+    <div>
+        <slot name="footer">底部信息</slot>
+    </div>
+</div></template>
+
+<div id="app">
+    <child-com>
+        <h1 slot="header"></h1>
+        <p>这是正文</p>
+        <h1 slot="footer"></h1>
+    </child-com>
+</div>
+
+<script>
+    Vue.createApp({})
+        .component('child-com', {template: '#child'})
+        .mount('#app')
+</script>
+</body>
+</html>

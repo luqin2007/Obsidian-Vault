@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<div id="hello-vue">
+    <a v-bind:href="myUrl.baidu">Baidu</a>
+    <a :href="myUrl.baidu">Baidu</a>
+    <img :src="myUrl.imgUrl" />
+</div>
+</body>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                myUrl: {
+                    baidu: "https://www.baidu.com",
+                    imgUrl: "images/ok.gif"
+                }
+            }
+        }
+    }).mount("#hello-vue")
+</script>
+</html>

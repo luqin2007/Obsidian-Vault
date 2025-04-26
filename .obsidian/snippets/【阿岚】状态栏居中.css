@@ -1,0 +1,13 @@
+/* 状态栏居中 */
+
+div.status-bar {
+  --status-bar-position: absolute;
+  right: 0;
+  left: 0;
+  width: fit-content;
+  padding: 6px var(--size-4-2);
+  margin: 0 auto; 
+  background: var(--background-secondary-blur);
+  border: 1px solid var(--window-border-color);
+  border-radius: var(--radius-s);
+}

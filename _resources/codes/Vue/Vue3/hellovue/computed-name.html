@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<div id="app">
+    姓名：{{ fullName }}<br>
+    <button v-on:click="changeName">修改计算属性</button>
+</div>
+</body>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                firstName: 'Chen',
+                lastName: 'Heng'
+            }
+        },
+        computed: {
+            fullName: {
+                get() {
+                    return this.firstName + ' ' + this.lastName
+                },
+                set(newValue) {
+                    const sp = newValue.split(' ')
+                    this.firstName = sp[0]
+                    this.lastName = sp[1]
+                }
+            }
+        },
+        methods: {
+            changeName() {
+                this.fullName = 'Zhang San'
+            }
+        }
+    }).mount("#app")
+</script>
+</html>

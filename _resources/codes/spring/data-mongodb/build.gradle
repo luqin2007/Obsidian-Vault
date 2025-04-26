@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.0-SNAPSHOT'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+//    implementation 'org.hibernate.orm:hibernate-core'
+
+    implementation 'org.mongodb:mongodb-driver-sync'
+    implementation 'org.mongodb:mongodb-driver-core'
+    implementation 'com.querydsl:querydsl-mongodb'
+
+    // https://mvnrepository.com/artifact/com.querydsl/querydsl-jpa
+    implementation group: 'com.querydsl', name: 'querydsl-jpa', version: '5.1.0', classifier: 'jakarta'
+    // https://mvnrepository.com/artifact/com.querydsl/querydsl-apt
+    implementation group: 'com.querydsl', name: 'querydsl-apt', version: '5.1.0', classifier: 'jakarta'
+
+    annotationProcessor group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '3.1.0'
+    annotationProcessor group: 'com.querydsl', name: 'querydsl-apt', version: '5.1.0', classifier: 'jakarta'
+}
+
+test {
+    useJUnitPlatform()
+}

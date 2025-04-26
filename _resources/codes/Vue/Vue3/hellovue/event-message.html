@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+
+<template id="blog">
+    <h4>{{id}}: {{title}}</h4>
+    <!-- 在这里发送 enlarge-text 和 ensmall-text 事件 -->
+    <button @click="$emit('enlarge-text', 0.1)">变大</button>
+    <button @click="$emit('ensmall-text', 0.1)">变小</button>
+</template>
+
+<div id="blog-post-demo">
+    <div :style="{ fontSize: postFontSize + 'em' }">
+        <blog-post v-for="post in posts" v-bind="post"
+                   @enlarge-text="onEnlargeText"
+                   @ensmall-text="postFontSize -= $event"></blog-post>
+    </div>
+</div>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                posts: [
+                    { id: 1, title: 'My journey with Vue' },
+                    { id: 2, title: 'Blogging with Vue' },
+                    { id: 3, title: 'Why Vue so fun' },
+                ],
+                postFontSize: 1
+            }
+        },
+        methods: {
+            onEnlargeText(enlargeAmount) {
+                this.postFontSize += enlargeAmount
+            }
+        }
+    })
+
+    app.component('blog-post', {
+        props: ['id', 'title'],
+        template: '#blog'
+    })
+
+    app.mount('#blog-post-demo')
+</script>
+</body>
+</html>

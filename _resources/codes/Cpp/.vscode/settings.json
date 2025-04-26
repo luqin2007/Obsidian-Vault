@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "format": "cpp",
+        "initializer_list": "cpp",
+        "xiosbase": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp",
+        "future": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp"
+    }
+}

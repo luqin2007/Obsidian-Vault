@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<div id="myFor">
+    <ul v-for="numbers in myData">
+        <li v-for="n in myNumbers(numbers)">{{n}}</li>
+    </ul>
+</div>
+</body>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                myData: [[111, 200, 300, 44, 55], [600, 777, 88, 999, 1011]]
+            }
+        },
+        methods: {
+            myNumbers(numbers) {
+                return numbers.filter(n => n > 100)
+            }
+        }
+    }).mount("#myFor")
+</script>
+</html>

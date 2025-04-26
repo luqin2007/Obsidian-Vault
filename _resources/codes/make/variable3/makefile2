@@ -1,0 +1,7 @@
+first_second = Hello
+a = first
+b = second
+a = $($a_$b)
+
+all : 
+	@echo $(a)

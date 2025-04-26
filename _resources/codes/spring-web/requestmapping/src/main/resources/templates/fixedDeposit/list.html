@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fixed Deposit List</title>
+    <link rel="stylesheet" href="../../static/fixedDepositList.css" data-th-href="@{/fixedDepositList.css}">
+</head>
+<body>
+<form name="fixedDepositList" method="post"
+      data-th-action="@{/fixedDeposit(fdAction='createFDForm')}">
+    <table>
+        <tr>
+            <td class="title">Fixed deposit list</td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <table class="border">
+                    <tr>
+                        <td class="td">ID</td>
+                        <td class="td">Account</td>
+                        <td class="td">Amount</td>
+                        <td class="td">Tenure</td>
+                        <td class="td">Email</td>
+                        <td class="td">Action</td>
+                    </tr>
+                    <th:block data-th-each="fixedDeposit : ${fdList}">
+                        <tr class="border">
+                            <td class="td" data-th-text="${fixedDeposit.id}">0</td>
+                            <td class="td" data-th-text="${fixedDeposit.bankAccountId}">0</td>
+                            <td class="td" data-th-text="${T(com.example.mybank.util.Utils).INSTANCE.formatMoney(fixedDeposit.depositAmount, #locale)}">10000 USD</td>
+                            <td class="td" data-th-text="${fixedDeposit.tenure}">6</td>
+                            <td class="td" data-th-text="${fixedDeposit.email}">example@email.com</td>
+                            <td class="td">
+                                <a data-th-href="@{/fixedDeposit(fdAction='edit', fixedDepositId=${fixedDeposit.id})}">Edit</a>
+                                <a data-th-href="@{/fixedDeposit(fdAction='delete', fixedDepositId=${fixedDeposit.id})}">Delete</a>
+                            </td>
+                        </tr>
+                    </th:block>
+                    <tr>
+                        <td><input type="submit" value="Create new Fixed Deposit"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</form>
+<p>Language:
+    <span><a data-th-href="@{/fixedDeposit/list(lang='en_US')}" href="#">English</a></span> |
+    <span><a data-th-href="@{/fixedDeposit/list(lang='de_DE')}" href="#">German</a></span> |
+    <span><a data-th-href="@{/fixedDeposit/list(lang=${#locale.getDefault()})}" href="#">Default</a></span></p>
+<p>Local: <span data-th-text="${#locale}">en_US</span></p>
+</body>
+</html>

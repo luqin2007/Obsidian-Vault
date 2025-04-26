@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+    <style>
+        .check-enter-from,
+        .check-leave-to {
+            opacity: 0;
+        }
+
+        .check-enter-active,
+        .check-leave-active {
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <button @click="show">多组件过渡</button>
+    <transition name="check" mode="out-in">
+        <component :is="view"></component>
+    </transition>
+</div>
+
+<template id="login">
+    <div><h1>登录子组件</h1></div>
+</template>
+
+<template id="register">
+    <div><h1>注册子组件</h1></div>
+</template>
+
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                view: 'login'
+            }
+        },
+        methods: {
+            show() {
+                this.view = this.view === 'login' ? 'register' : 'login'
+            }
+        },
+        components: {
+            login: { template: '#login' },
+            register: { template: '#register' },
+        }
+    }).mount('#app')
+</script>
+
+</body>
+</html>

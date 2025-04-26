@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:database.properties</value>
+                <value>classpath:web-service.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="database" class="com.example.mybank.bean.DataSource">
+        <property name="url" value="test url property" />
+        <property name="username" value="test username property" />
+        <property name="password" value="test password property" />
+        <property name="driverClass" value="test driverClass property" />
+    </bean>
+
+    <bean id="webservice" class="com.example.mybank.bean.WebServiceConfiguration">
+        <property name="url" value="test url property" />
+    </bean>
+</beans>

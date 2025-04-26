@@ -1,0 +1,23 @@
+/* 自定义标题大小及颜色 */
+body {
+
+    --h1-color: #bf616a;
+    --h2-color: #f8b633;
+    --h3-color: #a3be8c;
+    --h4-color: #b48ead;
+    --h5-color: #8fbcbb;
+    --h6-color: #81a1c1; 
+    --bold-color: #bf616a;
+    --italic-color: #a3be8c;
+  
+    --blockquote-border-color: #b48ead;
+    --link-color: #bf616a;
+    --link-color-hover: #81a1c1;
+    --link-external-color: #bf616a;
+    --link-external-color-hover: #81a1c1;
+    --link-unresolved-color: #bf616a;
+    --custom-vault-banner-icon-url: url("");
+  
+  }
+  
+  

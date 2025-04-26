@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="daoFactory" class="com.example.mybank.dao.FixedDepositDaoFactory"/>
+
+    <bean id="fixedDepositDao" factory-bean="daoFactory" factory-method="getFixedDepositDao" c:_0="jdbc">
+        <property name="databaseInfo">
+            <!-- 内部 bean -->
+            <bean class="com.example.mybank.beans.DatabaseInfo"/>
+        </property>
+    </bean>
+
+    <bean id="bankDetails" class="com.example.mybank.beans.BankDetails">
+        <property name="branchAddresses">
+            <!-- 内部 bean -->
+            <util:properties location="config/database.properties"/>
+        </property>
+    </bean>
+</beans>

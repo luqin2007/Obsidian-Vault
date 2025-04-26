@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <anchored-heading :level="1" title="锚点 1">Hello World111!</anchored-heading>
+    <anchored-heading :level="2" title="锚点 2">Hello World222!</anchored-heading>
+    <anchored-heading :level="3" title="锚点 3">Hello World333!</anchored-heading>
+    <anchored-heading :level="4" title="锚点 4">Hello World444!</anchored-heading>
+    <anchored-heading :level="5" title="锚点 5">Hello World555!</anchored-heading>
+</div>
+
+<script>
+    const MyAnchored = {
+        render() {
+            return Vue.h(`h${this.level}`, [
+                Vue.h('a', {
+                    href: `#${this.title}`
+                }, this.$slots.default())
+            ])
+        },
+        props: {
+            level: Number,
+            title: String
+        }
+    }
+
+    Vue.createApp({})
+        .component('anchored-heading', MyAnchored)
+        .mount('#app')
+</script>
+
+</body>
+</html>

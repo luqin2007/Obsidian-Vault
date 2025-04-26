@@ -1,0 +1,16 @@
+div {
+    border: 1px;
+    width: 200px;
+    height: 300px;
+    text-align: center;
+    background-color: rgb(215, 227, 250);
+}
+
+#app {
+    font-size: 24px;
+    color: #f50;
+}
+
+body {
+    background-color: rgb(171, 266, 43);
+}

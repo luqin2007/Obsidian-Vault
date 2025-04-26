@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<div id="components-demo">
+    <!-- component-a 不在作用域内，不生效，不会被渲染 -->
+    <component-a></component-a>
+    <br>
+    <component-b></component-b>
+</div>
+<script>
+    const ComponentA = {
+        template: '<span>这是私有组件 A</span>'
+    }
+    const ComponentB = {
+        components: {
+            'component-a': ComponentA
+        },
+        template: '<span>这是私有组件 B</span>'
+    }
+
+    let app = Vue.createApp({
+        components: {
+            'component-b': ComponentB
+        }
+    }).mount('#components-demo')
+</script>
+</body>
+</html>

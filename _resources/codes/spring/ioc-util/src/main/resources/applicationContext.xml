@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <util:map id="mapType" map-class="java.util.HashMap">
+        <entry key="key1" value="value1"/>
+        <entry key="key2" value="value2"/>
+    </util:map>
+
+    <util:set id="setType" set-class="java.util.HashSet">
+        <value>Element 1</value>
+        <value>Element 2</value>
+    </util:set>
+
+    <util:constant id="bool_true" static-field="java.lang.Boolean.TRUE" />
+
+    <util:list id="listType" list-class="java.util.LinkedList">
+        <value>A simple String value in list</value>
+        <value>Another simple String value in list</value>
+    </util:list>
+
+    <util:property-path id="dataType" path="listType.class" />
+
+    <util:properties id="propertiesType" location="classpath:META-INF/addresses.properties">
+        <prop key="key">value</prop>
+    </util:properties>
+
+    <bean id="example-factory" class="com.example.mybank.ExampleFactoryBean" />
+</beans>

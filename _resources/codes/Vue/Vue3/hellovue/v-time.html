@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <div v-time="nowTime"></div>
+    <div v-time="beforeTime"></div>
+</div>
+
+<script>
+    // 获取当前时间戳
+    function getUnix() {
+        return new Date().getTime()
+    }
+
+    // 获取今天 0 点时间戳
+    function getTodayUnit() {
+        const date = new Date()
+        date.setHours(0)
+        date.setMinutes(0)
+        date.setSeconds(0)
+        date.setMilliseconds(0)
+        return date.getTime()
+    }
+
+    // 获取标准时间
+    function getNormalDate(time) {
+        const date = new Date(time)
+        const month = date.getMonth() + 1
+        const monthFormat = month < 10 ? ('0' + month) : month
+        const day = date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate()
+        return `${date.getFullYear()}-${monthFormat}-${day}`
+    }
+
+    // 获取格式化后的时间
+    function getFormatTime(timeStamp) {
+        const now = getUnix()
+        const today = getTodayUnit()
+        const timer = (now - timeStamp) / 1000
+        let timeFormat = ''
+
+        if (timer <= 0) timeFormat = '刚刚'
+        // 1min 之前
+        else if (Math.floor(timer / 60) <= 0) timeFormat = '刚刚'
+        // 1min - 1h
+        else if (timer < 3600)
+            timeFormat = Math.floor(timer / 60) + ' 分钟前'
+        // 1h - 1d
+        else if (timer >= 3600 && (timeStamp - today) >= 0)
+            timeFormat = Math.floor(timer / 3600) + ' 小时前'
+        // 1d - 1m
+        else if (timer / 86400 <= 31)
+            timeFormat = Math.ceil(timer / 86400) + ' 天前'
+        // >1m: XX年XX月XX日
+        else timeFormat = getNormalDate(timeStamp)
+
+        return timeFormat
+    }
+
+    Vue.createApp({
+        data() {
+            return {
+                nowTime: new Date().getTime(),
+                beforeTime: 1628407242588
+            }
+        }
+    }).directive('time', {
+        beforeMount(el, binding) {
+            el.innerHTML = getFormatTime(binding.value)
+            el.timeout = setInterval(function () {
+                el.innerHTML = getFormatTime(binding.value)
+            }, 60000)
+        },
+        unmounted(el) {
+            clearInterval(el.timeout)
+            delete el.timeout
+        }
+    }).mount('#app')
+</script>
+
+</body>
+</html>

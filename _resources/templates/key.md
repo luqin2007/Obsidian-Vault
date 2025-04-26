@@ -1,0 +1,1 @@
+<kbd><% await tp.system.prompt('按键：') %></kbd>

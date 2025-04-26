@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:amq="http://activemq.apache.org/schema/core"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd
+       http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd">
+
+    <!-- 内嵌模式 -->
+    <amq:broker>
+        <amq:transportConnectors>
+            <amq:transportConnector uri="tcp://localhost:61616" />
+        </amq:transportConnectors>
+    </amq:broker>
+
+    <amq:connectionFactory brokerURL="vm://localhost" id="connectionFactory">
+        <amq:trustedPackages>
+            <value>com.example.mybank</value>
+            <value>java.util</value>
+        </amq:trustedPackages>
+    </amq:connectionFactory>
+
+    <bean id="cachingConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="targetConnectionFactory" ref="connectionFactory" />
+    </bean>
+
+    <amq:queue id="fixedDepositDestination" physicalName="aQueueDestination" />
+    <amq:queue id="emailQueueDestination" physicalName="emailQueueDestination" />
+
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="defaultDestination" ref="fixedDepositDestination" />
+    </bean>
+
+    <bean id="jmsTxManager" class="org.springframework.jms.connection.JmsTransactionManager">
+        <property name="connectionFactory" ref="cachingConnectionFactory" />
+    </bean>
+
+    <bean id="jmsTransactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="jmsTxManager" />
+    </bean>
+
+    <bean id="fixedDepositDao" class="com.example.mybank.dao.FixedDepositDao" />
+    <bean id="fixedDepositService" class="com.example.mybank.service.FixedDepositService">
+        <lookup-method name="getFixedDepositDao" bean="fixedDepositDao" />
+        <lookup-method name="getJmsTemplate" bean="jmsTemplate" />
+        <lookup-method name="getTransactionTemplate" bean="jmsTransactionTemplate" />
+    </bean>
+
+    <bean id="fixedDepositMessageListener" class="com.example.mybank.jms.FixedDepositMessageListener" />
+    <bean id="emailMessageListener" class="com.example.mybank.jms.EmailMessageListener" />
+
+    <jms:listener-container>
+        <jms:listener destination="aQueueDestination" ref="fixedDepositMessageListener" />
+        <jms:listener destination="emailQueueDestination" ref="emailMessageListener" />
+    </jms:listener-container>
+</beans>

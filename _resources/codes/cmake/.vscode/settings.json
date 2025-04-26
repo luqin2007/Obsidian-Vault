@@ -1,0 +1,7 @@
+{
+    "makefile.configureOnOpen": false,
+    "editor.fontFamily": "'Monaspace Neon', 'Droid Sans Mono', 'monospace', monospace",
+    "files.associations": {
+        "iostream": "cpp"
+    }
+}

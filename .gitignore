@@ -1,0 +1,19 @@
+#obsidian
+.trash
+个人笔记/private
+.obsidian/workspace.json
+.obsidian/plugins/global-proxy
+.obsidian/plugins/various-complements/histories.json
+.obsidian/plugins/recent-files-obsidian
+.obsidian/plugins/smart-composer/data.json
+
+# js
+**/node_modules
+**/dist
+package-lock.json
+
+# Kate
+*.kate-swp
+
+# Resilio Sync
+**/.sync

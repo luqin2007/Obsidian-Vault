@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<div id="app">
+    <input><br>
+    <base-input></base-input><br>
+    <input>
+</div>
+
+<script>
+    Vue.createApp({})
+        .component('base-input', {
+            // 引用 usernameInput
+            template: '<input ref="usernameInput">',
+            methods: {
+                focusInput() {
+                    // 访问 usernameInput 获取焦点
+                    this.$refs.usernameInput.focus()
+                }
+            },
+            mounted() {
+                this.focusInput()
+            },
+            // 声明一个子组件
+            // 如果 ref 引用的是 HTML 元素则可以没有
+            components: {
+                'usernameInput': {template: '<input>'}
+            }
+        })
+        .mount('#app')
+</script>
+</body>
+</html>

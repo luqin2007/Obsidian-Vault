@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="emailProperties" class="java.util.Properties" />
+
+    <bean id="emailMessageSender" class="com.example.mybank.EmailMessageSender">
+        <property name="host" value="smtp.163.com" />
+        <property name="emailProperties" ref="emailProperties" />
+    </bean>
+</beans>

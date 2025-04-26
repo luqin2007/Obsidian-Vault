@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+<body>
+<template id="parent">
+    <h4>{{message}}</h4>
+    <children v-for="post in posts" :id="post.id" :title="post.title"></children>
+    =========
+    <children v-for="post in posts" v-bind="post"></children>
+</template>
+
+<template id="children">
+    <h4>{{id}}: {{title}}</h4>
+</template>
+
+<div id="message-post-demo">
+    <parent message="来自父元素的消息"></parent>
+</div>
+
+<script>
+    let app = Vue.createApp({})
+    app.component('parent', {
+        data() {
+            return {
+                posts: [
+                    {id: 1, title: 'My journey with Vue'},
+                    {id: 2, title: 'Blogging with Vue'},
+                    {id: 3, title: 'Why Vue is so fun'}
+                ]
+            }
+        },
+        props: ['message'],
+        components: {
+            'children': {
+                props: ['id', 'title'],
+                template: '#children'
+            }
+        },
+        template: '#parent'
+    })
+    app.mount('#message-post-demo')
+</script>
+</body>
+</html>

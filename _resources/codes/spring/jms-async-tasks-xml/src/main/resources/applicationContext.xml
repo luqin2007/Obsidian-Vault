@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!--
+    <bean id="myTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="5" />
+        <property name="maxPoolSize" value="10" />
+        <property name="queueCapacity" value="15" />
+        <property name="rejectedExecutionHandler">
+            <bean class="java.util.concurrent.ThreadPoolExecutor$AbortPolicy" />
+        </property>
+    </bean>
+    -->
+
+    <task:executor id="myTaskExecutor" pool-size="5" queue-capacity="15" rejection-policy="ABORT" />
+
+    <task:scheduler id="myTaskScheduler" pool-size="5" />
+
+    <task:scheduled-tasks>
+        <task:scheduled ref="myTask" method="runTask" fixed-rate="500"/>
+    </task:scheduled-tasks>
+
+    <bean id="myTask" class="com.example.mybank.task.ScheduledTask" />
+
+</beans>

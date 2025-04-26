@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.global.js"></script>
+    <script src="https://unpkg.com/mitt/dist/mitt.umd.js"></script>
+</head>
+<body>
+<div id="buyer">
+    <h1>{{message1}}</h1>
+    <button @click="transferb">我是买方，向卖方传递信息</button>
+</div>
+
+<div id="seller">
+    <h1>{{message2}}</h1>
+    <button @click="transfers">我是卖方，向买方传递信息</button>
+</div>
+
+<script>
+    const bus = mitt()
+
+    const buyer = Vue.createApp({
+        data() {
+            return {
+                message1: ''
+            }
+        },
+        methods: {
+            transferb() {
+                bus.emit('on-message1', '来自买方的信息')
+            }
+        },
+        mounted() {
+            bus.on('on-message2', msg => this.message1 = msg)
+        }
+    }).mount('#buyer')
+
+    const seller = Vue.createApp({
+        data() {
+            return {
+                message2: ''
+            }
+        },
+        methods: {
+            transfers() {
+                bus.emit('on-message2', '来自卖方的信息')
+            }
+        },
+        mounted() {
+            bus.on('on-message1', msg => this.message2 = msg)
+        }
+    }).mount('#seller')
+</script>
+</body>
+</html>
